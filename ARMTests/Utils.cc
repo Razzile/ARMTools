@@ -1,17 +1,17 @@
 //
-//  main.cpp
+//  Utils.cpp
 //  ARMTests
 //
-//  Created by callum taylor on 11/08/2015.
-//  Copyright (c) 2015 satori. All rights reserved.
+//  Created by callum taylor on 11/02/2016.
+//  Copyright © 2016 satori. All rights reserved.
 //
 
-#include <iostream>
-#include <string>
-#include <stdarg.h>  // For va_start, etc.
-#include <memory>    // For std::unique_ptr
+#include <stdarg.h>
+#include <memory>
+#include <stdlib.h>
+#include "Utils.h"
 
-std::string string_format(const std::string fmt_str, ...) {
+std::string Utils::FormatString(const std::string fmt_str, ...) {
     int final_n, n = ((int)fmt_str.size()) * 2; /* Reserve two times as much as the length of the fmt_str */
     std::string str;
     std::unique_ptr<char[]> formatted;
@@ -28,17 +28,4 @@ std::string string_format(const std::string fmt_str, ...) {
             break;
     }
     return std::string(formatted.get());
-}
-std::string DisBX(uint32_t insn)
-{
-    uint8_t cond = (insn >> 28) & 0xf;
-    uint8_t rn = insn & 0xf;
-    
-    return string_format("bx r%d", rn);
-}
-
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << DisBX(0x1EFF2FE1);
-    return 0;
 }
